@@ -4,9 +4,12 @@ const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 const request = require('request');
 const calificaME = express();
 const router = express.Router();
+const bodyParser = require('body-parser');
+
+calificaME.use(bodyParser.json());
+calificaME.use(bodyParser.urlencoded({ extended: true }));
 
 var publicaciones="";
-
 var htmlTextTop = '<html lang="en">\
 <head>\
     <meta charset="UTF-8">\
@@ -54,14 +57,14 @@ var htmlTextTop = '<html lang="en">\
             \
                 <div class="row">\
                     <div class="col-sm text-center">\
-                        <h4>Andrés Alexandro Tapia Flores<br></h4>\
+                        <h4>Juan Sebastián Sotomayor<br></h4>\
                         Universidad de las Fuerzas Armadas - ESPE<br>\
                         Introducción a la Mecatrónica\
                     </div>\
                     <div class="col-sm text-center">\
                         <h5>Pesimooooooooo!<br></h5>\
-                        <p class="comment">Pésimo, nunca generaba nada, mal profesor, no lo recomiendo. Además olía a pies, creo que nunca se bañaba ni usaba colognia, era amigo del Juan Sotomayor que era otro verga</p>\
-                        <p>7/10</p> \
+                        <p class="comment">Pésimo, nunca generaba nada, mal profesor, no lo recomiendo. Además olía a pies, creo que nunca se bañaba ni usaba colognia, era amigo del Quisi que era otro verga</p>\
+                        <p>10/10</p> \
                     </div>\
                 </div><hr>'
 var htmlTextBottom = '            </div>\
@@ -110,16 +113,22 @@ var htmlTextBottom = '            </div>\
                 calificacion=n;\
             }\
             function send(){\
-                if(calificacion===0){\
+                if(calificacion===0 || document.getElementsByClassName("nombre")[0].value=="" || document.getElementsByClassName("universidad")[0].value=="" || document.getElementsByClassName("materia")[0].value=="" || document.getElementsByClassName("frase")[0].value=="" || document.getElementsByClassName("comentario")[0].value==""){\
                     window.alert("Por favor, llena todos los parámetros");\
                 }\
                 else{\
-                    $.post("https://calificame.netlify.com/.netlify/functions/index",\
-                    { myData: "this is my data" },\
+                    $.post("https://calificame.netlify.com/.netlify/functions/index",{\
+                        nombre: document.getElementsByClassName("nombre")[0].value,\
+                        universidad: document.getElementsByClassName("universidad")[0].value,\
+                        materia: document.getElementsByClassName("materia")[0].value,\
+                        frase: document.getElementsByClassName("frase")[0].value,\
+                        comentario: document.getElementsByClassName("comentario")[0].value,\
+                        calificacion: calificacion\
+                    },\
                     function(data, status, xhr) {\
-                            },\
-                    "json");\
+                    },"json");\
                     window.alert("Enviaste una calificación de: "+calificacion);\
+                    location.reload();\
                 }\
             }\
         </script>';
@@ -132,16 +141,23 @@ router.get("/",(request,response)=>{
 });
 
 router.post("/",function(request,response){
+    var nombre = request.body.nombre;
+    var universidad = request.body.universidad;
+    var materia = request.body.materia;
+    var frase = request.body.frase;
+    var comentario = request.body.comentario;
+    var calificacion = request.body.calificacion;
+    comentario = comentario.replace(/\n/g,"<br>")
     publicaciones=publicaciones+'<div class="row">\
     <div class="col-sm text-center">\
-        <h4>Andrés Alexandro Tapia Flores<br></h4>\
-        Universidad de las Fuerzas Armadas - ESPE<br>\
-        Introducción a la Mecatrónica\
+        <h4>'+nombre+'<br></h4>\
+        '+universidad+'<br>\
+        '+materia+'\
     </div>\
     <div class="col-sm text-center">\
-        <h5>Pesimooooooooo!<br></h5>\
-        <p class="comment">Pésimo, nunca generaba nada, mal profesor, no lo recomiendo. Además olía a pies, creo que nunca se bañaba ni usaba colognia, era amigo del Juan Sotomayor que era otro verga</p>\
-        <p>7/10</p> \
+        <h5>'+frase+'<br></h5>\
+        <p class="comment">'+comentario+'</p>\
+        <p>'+calificacion+'/10</p>\
     </div>\
     </div><hr>';
     htmlText = htmlTextTop+publicaciones+htmlTextBottom

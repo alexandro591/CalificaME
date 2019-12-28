@@ -103,29 +103,22 @@
         calificacion=n;
     }
     function send(){
-        if(calificacion===0){
+        if(calificacion===0 || document.getElementsByClassName("nombre")[0].value=="" || document.getElementsByClassName("universidad")[0].value=="" || document.getElementsByClassName("materia")[0].value=="" || document.getElementsByClassName("frase")[0].value=="" || document.getElementsByClassName("comentario")[0].value==""){
             window.alert("Por favor, llena todos los parámetros");
         }
         else{
-            htmlText=   '\
-                        \
-                        <div class="row">\
-                            <div class="col-sm text-center">\
-                                <h4>'+document.getElementsByClassName('nombre')[0].value+'<br></h4>\
-                                '+document.getElementsByClassName('universidad')[0].value+'<br>\
-                                '+document.getElementsByClassName('materia')[0].value+'\
-                            </div>\
-                            <div class="col-sm text-center">\
-                                <h5>'+document.getElementsByClassName('frase')[0].value+'<br></h5>\
-                                <p class="comment">'+document.getElementsByClassName('comentario')[0].value+'</p>\
-                                <p>'+calificacion+'/10'+'</p>\
-                            </div>\
-                        </div><hr>\
-                        \
-                        \
-                        ';
-            $(".container").append(htmlText);
+            $.post("https://calificame.netlify.com/.netlify/functions/index",{ 
+                nombre: document.getElementsByClassName("nombre")[0].value,
+                universidad: document.getElementsByClassName("universidad")[0].value,
+                materia: document.getElementsByClassName("materia")[0].value,
+                frase: document.getElementsByClassName("frase")[0].value,
+                comentario: document.getElementsByClassName("comentario")[0].value,
+                calificacion: calificacion
+            },
+            function(data, status, xhr) {
+            },"json");
             window.alert("Enviaste una calificación de: "+calificacion);
+            location.reload();
         }
     }
 </script>
