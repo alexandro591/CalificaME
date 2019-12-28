@@ -183,7 +183,7 @@ router.post("/",function(request,response){
                             <h5>'+frase+'<br></h5>\
                             <p class="comment">'+comentario+'</p>\
                             <p>'+calificacion+'/10</p>\
-                            <p>Date:'+datetime+'</p>\
+                            <p>Date:'+datetime.toISOString().slice(0,10)+'</p>\
                         </div>\
                     </div><hr>'+publicaciones;
     response.write("ok");
