@@ -132,8 +132,18 @@ router.get("/",(request,response)=>{
 });
 
 router.post("/",function(request,response){
-    console.log("ok")
-    publicaciones=publicaciones+"dfsgfdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd";
+    publicaciones=publicaciones+'<div class="row">\
+    <div class="col-sm text-center">\
+        <h4>Andrés Alexandro Tapia Flores<br></h4>\
+        Universidad de las Fuerzas Armadas - ESPE<br>\
+        Introducción a la Mecatrónica\
+    </div>\
+    <div class="col-sm text-center">\
+        <h5>Pesimooooooooo!<br></h5>\
+        <p class="comment">Pésimo, nunca generaba nada, mal profesor, no lo recomiendo. Además olía a pies, creo que nunca se bañaba ni usaba colognia, era amigo del Juan Sotomayor que era otro verga</p>\
+        <p>7/10</p> \
+    </div>\
+    </div><hr>';
     htmlText = htmlTextTop+publicaciones+htmlTextBottom
     response.write("ok");
     response.end();
