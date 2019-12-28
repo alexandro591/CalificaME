@@ -172,18 +172,18 @@ router.post("/",function(request,response){
     let comentario = request.body.comentario;
     let calificacion = request.body.calificacion;
     comentario = comentario.replace(/\n/g,"<br>")
-    publicaciones='<div class="row">\
-    <div class="col-sm text-center">\
-        <h4>'+nombre+'<br></h4>\
-        '+universidad+'<br>\
-        '+materia+'\
-    </div>\
-    <div class="col-sm text-center">\
-        <h5>'+frase+'<br></h5>\
-        <p class="comment">'+comentario+'</p>\
-        <p>'+calificacion+'/10</p>\
-    </div>\
-    </div><hr>'+publicaciones;
+    publicaciones ='<div class="row">\
+                        <div class="col-sm text-center">\
+                            <h4>'+nombre+'<br></h4>\
+                            '+universidad+'<br>\
+                            '+materia+'\
+                        </div>\
+                        <div class="col-sm text-center">\
+                            <h5>'+frase+'<br></h5>\
+                            <p class="comment">'+comentario+'</p>\
+                            <p>'+calificacion+'/10</p>\
+                        </div>\
+                    </div><hr>'+publicaciones;
     response.write("ok");
     response.end();
 });
