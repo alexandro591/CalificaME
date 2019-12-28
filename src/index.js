@@ -53,21 +53,21 @@ var htmlTextTop = '<html lang="en">\
     </section>\
     <section id="posts">\
         <div>\
-            <div class="container">\
-            \
-                <div class="row">\
-                    <div class="col-sm text-center">\
-                        <h4>Juan Sebastián Sotomayor<br></h4>\
-                        Universidad de las Fuerzas Armadas - ESPE<br>\
-                        Introducción a la Mecatrónica\
-                    </div>\
-                    <div class="col-sm text-center">\
-                        <h5>Pesimooooooooo!<br></h5>\
-                        <p class="comment">Pésimo, nunca generaba nada, mal profesor, no lo recomiendo. Además olía a pies, creo que nunca se bañaba ni usaba colognia, era amigo del Quisi que era otro verga</p>\
-                        <p>10/10</p> \
-                    </div>\
-                </div><hr>'
-var htmlTextBottom = '            </div>\
+            <div class="container">'
+var htmlTextBottom = '\
+            <div class="row">\
+                <div class="col-sm text-center">\
+                    <h4>Juan Sebastián Sotomayor<br></h4>\
+                    Universidad de las Fuerzas Armadas - ESPE<br>\
+                    Introducción a la Mecatrónica\
+                </div>\
+                <div class="col-sm text-center">\
+                    <h5>Pesimooooooooo!<br></h5>\
+                    <p class="comment">Pésimo, nunca generaba nada, mal profesor, no lo recomiendo. Además olía a pies, creo que nunca se bañaba ni usaba colognia, era amigo del Quisi que era otro verga</p>\
+                    <p>10/10</p> \
+                </div>\
+            </div><hr>\
+            </div>\
                 </div>    \
             <br><br><hr>\
             </section>\
@@ -148,7 +148,7 @@ router.post("/",function(request,response){
     var comentario = request.body.comentario;
     var calificacion = request.body.calificacion;
     comentario = comentario.replace(/\n/g,"<br>")
-    publicaciones=publicaciones+'<div class="row">\
+    publicaciones='<div class="row">\
     <div class="col-sm text-center">\
         <h4>'+nombre+'<br></h4>\
         '+universidad+'<br>\
@@ -159,7 +159,7 @@ router.post("/",function(request,response){
         <p class="comment">'+comentario+'</p>\
         <p>'+calificacion+'/10</p>\
     </div>\
-    </div><hr>';
+    </div><hr>'+publicaciones;
     htmlText = htmlTextTop+publicaciones+htmlTextBottom
     response.write("ok");
     response.end();
