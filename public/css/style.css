@@ -74,15 +74,15 @@ body{
 }
 
 #send{
-    padding-top: 50px;
-    margin-top: -50px;
+    padding-top: 80px;
+    margin-top: -80px;
     height: 100vh;
     background: linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.6)),url(../img/califica.jpg);
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
-    padding-bottom: 150px;
-    margin-bottom: 150px;
+    padding-bottom: 250px;
+    margin-bottom: -250px;
 }
 
 @media only screen and (max-width: 600px) {
