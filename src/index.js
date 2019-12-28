@@ -120,7 +120,7 @@ var htmlTextBottom = '\
                 console.log(error)\
             }\
             function califica(n){\
-                $("#nota").html("<u>Nota: "+n+"</u>");\
+                $("#nota").html("<b>Nota: "+n+"</b>");\
                 calificacion=n;\
             }\
             function send(){\
