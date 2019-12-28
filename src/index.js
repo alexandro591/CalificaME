@@ -114,7 +114,7 @@ var htmlTextBottom = '            </div>\
                     window.alert("Por favor, llena todos los parámetros");\
                 }\
                 else{\
-                    $.post("http://localhost:9000/.netlify/functions/index",\
+                    $.post("https://calificame.netlify.com/.netlify/functions/index",\
                     { myData: "this is my data" },\
                     function(data, status, xhr) {\
                             },\
