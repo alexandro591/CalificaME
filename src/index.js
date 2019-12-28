@@ -76,7 +76,7 @@ var htmlTextTop = '<html lang="en">\
     </section>\
     <section id="posts">\
         <div>\
-            <div class="container">'
+            <div class="container">';
 var htmlTextBottom = '\
             </div>\
                 </div>    \
@@ -144,20 +144,21 @@ var htmlTextBottom = '\
             }\
         </script>';
 
-var htmlText = htmlTextTop+publicaciones+htmlTextBottom
+var htmlText;
 
 router.get("/",(request,response)=>{
+    htmlText = htmlTextTop+publicaciones+htmlTextBottom
     response.write(htmlText)
     response.end();
 });
 
 router.post("/",function(request,response){
-    var nombre = request.body.nombre;
-    var universidad = request.body.universidad;
-    var materia = request.body.materia;
-    var frase = request.body.frase;
-    var comentario = request.body.comentario;
-    var calificacion = request.body.calificacion;
+    let nombre = request.body.nombre;
+    let universidad = request.body.universidad;
+    let materia = request.body.materia;
+    let frase = request.body.frase;
+    let comentario = request.body.comentario;
+    let calificacion = request.body.calificacion;
     comentario = comentario.replace(/\n/g,"<br>")
     publicaciones='<div class="row">\
     <div class="col-sm text-center">\
@@ -171,7 +172,6 @@ router.post("/",function(request,response){
         <p>'+calificacion+'/10</p>\
     </div>\
     </div><hr>'+publicaciones;
-    htmlText = htmlTextTop+publicaciones+htmlTextBottom
     response.write("ok");
     response.end();
 });
