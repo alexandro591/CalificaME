@@ -103,7 +103,7 @@ var htmlTextBottom = '\
                             <a class="dropdown-item" onclick="califica(8)">8</a>\
                             <a class="dropdown-item" onclick="califica(9)">9</a>\
                             <a class="dropdown-item" onclick="califica(10)">10</a>\
-                        <span>Selecciona</span></div><span id="nota" style="color: white;"></span>\
+                        </div><span id="nota" style="color: white;"><b>Selecciona</b></span>\
                     </div><br>\
                     <input class="btn btn-primary" type="submit" value="Enviar" onclick="send()">\
                 </div>\
