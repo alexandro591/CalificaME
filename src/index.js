@@ -134,7 +134,7 @@ router.get("/resetdepublicaciones",(request,response)=>{
                         <div class="col-sm text-center">\
                             <h5>El mejor profe de la carrera<br></h5>\
                             <p class="comment">Excelente profesor, siempre dispuesto a ayudarte. Es exigente, pero no a un nivel exagerado. Actualmente es el director de la carrera</p>\
-                            <p>10/10</p> \
+                            <p>10/10</p>\
                         </div>\
                     </div><hr>\
                     <div class="row">\
@@ -171,7 +171,8 @@ router.post("/",function(request,response){
     let frase = request.body.frase;
     let comentario = request.body.comentario;
     let calificacion = request.body.calificacion;
-    comentario = comentario.replace(/\n/g,"<br>")
+    var datetime = new Date();
+    comentario = comentario.replace(/\n/g,"<br>");
     publicaciones ='<div class="row">\
                         <div class="col-sm text-center">\
                             <h4>'+nombre+'<br></h4>\
@@ -182,6 +183,7 @@ router.post("/",function(request,response){
                             <h5>'+frase+'<br></h5>\
                             <p class="comment">'+comentario+'</p>\
                             <p>'+calificacion+'/10</p>\
+                            <p>Date:'+datetime+'</p>\
                         </div>\
                     </div><hr>'+publicaciones;
     response.write("ok");
