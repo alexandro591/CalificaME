@@ -125,30 +125,7 @@ var htmlTextBottom = '\
 var htmlText;
 
 router.get("/resetdepublicaciones",(request,response)=>{
-    publicaciones ='<div class="row">\
-                        <div class="col-sm text-center">\
-                            <h4>David Loza<br></h4>\
-                            Universidad de las Fuerzas Armadas - ESPE<br>\
-                            Intrumentación Mecánica\
-                        </div>\
-                        <div class="col-sm text-center">\
-                            <h5>El mejor profe de la carrera<br></h5>\
-                            <p class="comment">Excelente profesor, siempre dispuesto a ayudarte. Es exigente, pero no a un nivel exagerado. Actualmente es el director de la carrera</p>\
-                            <p>10/10</p>\
-                        </div>\
-                    </div><hr>\
-                    <div class="row">\
-                    <div class="col-sm text-center">\
-                        <h4>Wilbert Aguilar<br></h4>\
-                        Universidad de las Fuerzas Armadas - ESPE<br>\
-                        Redes Industriales\
-                    </div>\
-                    <div class="col-sm text-center">\
-                        <h5>Innovador<br></h5>\
-                        <p class="comment">Excelente docente, siempre dispuesto a ayudar al estudiante, amable y cordial</p>\
-                        <p>10/10</p> \
-                    </div>\
-                    </div><hr>';
+    publicaciones ='<div class="row">                        <div class="col-sm text-center">                            <h4>Wilbert Aguilar<br></h4>                            Universidad de las Fuerzas Armadas - ESPE<br>                            Redes Industriales                        </div>                        <div class="col-sm text-center">                            <h5>Innovador<br></h5>                            <p class="comment">Excelente docente, siempre dispuesto a ayudar al estudiante, amable y cordial</p>                            <p>10/10</p>                            <p>Date:2019-12-28</p>                        </div>                    </div><hr><div class="row">                        <div class="col-sm text-center">                            <h4>David Loza<br></h4>                            Universidad de las Fuerzas Armadas - ESPE<br>                            Intrumentación Mecánica                        </div>                        <div class="col-sm text-center">                            <h5>El mejor profe de la carrera<br></h5>                            <p class="comment">Excelente profesor, siempre dispuesto a ayudarte. Es exigente, pero no a un nivel exagerado. Actualmente es el director de la carrera</p>                            <p>10/10</p>                            <p>Date:2019-12-28</p>                        </div>                    </div><hr>undefined';
     response.write("Publicaciones reseteadas")
     response.end();
 });
