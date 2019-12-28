@@ -82,6 +82,7 @@ body{
     background-size: cover;
     background-attachment: fixed;
     padding-bottom: 150px;
+    margin-bottom: 150px;
 }
 
 @media only screen and (max-width: 600px) {
