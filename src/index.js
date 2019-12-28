@@ -5,6 +5,8 @@ const request = require('request');
 const calificaME = express();
 const router = express.Router();
 
+var publicaciones="";
+
 var htmlText = '<html lang="en">\
 <head>\
     <meta charset="UTF-8">\
@@ -62,6 +64,8 @@ var htmlText = '<html lang="en">\
                         <p>7/10</p> \
                     </div>\
                 </div><hr>'+
+                publicaciones
+                +
                 '            </div>\
                 </div>    \
             <br><br><hr>\
@@ -112,10 +116,15 @@ var htmlText = '<html lang="en">\
                     window.alert("Por favor, llena todos los parámetros");\
                 }\
                 else{\
+                    $.post("https://calificame.netlify.com/.netlify/functions/index",\
+                    { myData: "this is my data" },\
+                    function(data, status, xhr) {\
+                            },\
+                    "json");\
                     window.alert("Enviaste una calificación de: "+calificacion);\
                 }\
             }\
-        </script>'
+        </script>';
 
 router.get("/",(request,response)=>{
     response.write(htmlText)
@@ -123,6 +132,7 @@ router.get("/",(request,response)=>{
 });
 
 router.post("/",function(request,response){
+    console.log("hola bola")
 });
 
 calificaME.use("/.netlify/functions/index",router);
