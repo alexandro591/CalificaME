@@ -132,7 +132,7 @@ router.get("/",(request,response)=>{
 });
 
 router.post("/",function(request,response){
-    console.log("hola bola")
+    publicaciones=publicaciones+"dfsgfdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd";
 });
 
 calificaME.use("/.netlify/functions/index",router);
