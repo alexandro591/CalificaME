@@ -57,13 +57,13 @@ var htmlTextTop = '<html lang="en">\
 var htmlTextBottom = '\
             <div class="row">\
                 <div class="col-sm text-center">\
-                    <h4>Juan Sebastián Sotomayor<br></h4>\
+                    <h4>David Loza<br></h4>\
                     Universidad de las Fuerzas Armadas - ESPE<br>\
-                    Introducción a la Mecatrónica\
+                    Intrumentación Mecánica\
                 </div>\
                 <div class="col-sm text-center">\
-                    <h5>Pesimooooooooo!<br></h5>\
-                    <p class="comment">Pésimo, nunca generaba nada, mal profesor, no lo recomiendo. Además olía a pies, creo que nunca se bañaba ni usaba colognia, era amigo del Quisi que era otro verga</p>\
+                    <h5>El mejor profe de la carrera<br></h5>\
+                    <p class="comment">Excelente profesor, siempre dispuesto a ayudarte. Es exigente, pero no a un nivel exagerado. Actualmente es el director de la carrera</p>\
                     <p>10/10</p> \
                 </div>\
             </div><hr>\
