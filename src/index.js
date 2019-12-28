@@ -7,7 +7,7 @@ const router = express.Router();
 
 var publicaciones="";
 
-var htmlText = '<html lang="en">\
+var htmlTextTop = '<html lang="en">\
 <head>\
     <meta charset="UTF-8">\
     <meta name="viewport" content="width=device-width, initial-scale=1.0">\
@@ -63,10 +63,8 @@ var htmlText = '<html lang="en">\
                         <p class="comment">Pésimo, nunca generaba nada, mal profesor, no lo recomiendo. Además olía a pies, creo que nunca se bañaba ni usaba colognia, era amigo del Juan Sotomayor que era otro verga</p>\
                         <p>7/10</p> \
                     </div>\
-                </div><hr>'+
-                publicaciones
-                +
-                '            </div>\
+                </div><hr>'
+var htmlTextBottom = '            </div>\
                 </div>    \
             <br><br><hr>\
             </section>\
@@ -116,7 +114,7 @@ var htmlText = '<html lang="en">\
                     window.alert("Por favor, llena todos los parámetros");\
                 }\
                 else{\
-                    $.post("https://calificame.netlify.com/.netlify/functions/index",\
+                    $.post("http://localhost:9000/.netlify/functions/index",\
                     { myData: "this is my data" },\
                     function(data, status, xhr) {\
                             },\
@@ -126,13 +124,19 @@ var htmlText = '<html lang="en">\
             }\
         </script>';
 
+var htmlText = htmlTextTop+publicaciones+htmlTextBottom
+
 router.get("/",(request,response)=>{
     response.write(htmlText)
     response.end();
 });
 
 router.post("/",function(request,response){
+    console.log("ok")
     publicaciones=publicaciones+"dfsgfdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd";
+    htmlText = htmlTextTop+publicaciones+htmlTextBottom
+    response.write("ok");
+    response.end();
 });
 
 calificaME.use("/.netlify/functions/index",router);
