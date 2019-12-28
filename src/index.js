@@ -146,6 +146,11 @@ var htmlTextBottom = '\
 
 var htmlText;
 
+router.get("/publicaciones",(request,response)=>{
+    response.write(publicaciones)
+    response.end();
+});
+
 router.get("/",(request,response)=>{
     htmlText = htmlTextTop+publicaciones+htmlTextBottom
     response.write(htmlText)
