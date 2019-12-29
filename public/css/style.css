@@ -8,7 +8,7 @@ body{
 }
 
 .navbar{
-    background-color: rgba(0, 0, 0, 0.397);
+    background-color: transparent;
 }
 
 #mynavbar{
@@ -88,5 +88,11 @@ body{
 @media only screen and (max-width: 600px) {
     #input{
         width: 80%;
+    }
+    .navbar{
+        background-color: rgba(0, 0, 0, 0.397);
+    }
+    #mynavbar{
+        background-color: transparent
     }
   }
