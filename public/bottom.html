@@ -1,0 +1,65 @@
+</div>
+</div>    
+<br><br><hr>
+</section>
+<section id="send">
+<h4 style="color: white;">Envía una calificación</h4>
+<div class="send">
+    <textarea class="nombre" id="input" placeholder="Nombre del profesor" rows="1"></textarea><br><br>
+    <textarea class="universidad" id="input" placeholder="Universidad" rows="1"></textarea><br><br>
+    <textarea class="materia" id="input" placeholder="Materia" rows="1"></textarea><br><br>
+    <textarea class="frase" id="input" placeholder="Descríbelo en una frase" rows="1"></textarea><br><br>
+    <textarea class="comentario" id="input" placeholder="Descríbelo con más detalle" style="height: 30%;"></textarea><br><br>
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Califica</button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" onclick="califica(1)">1</a>
+            <a class="dropdown-item" onclick="califica(2)">2</a>
+            <a class="dropdown-item" onclick="califica(3)">3</a>
+            <a class="dropdown-item" onclick="califica(4)">4</a>
+            <a class="dropdown-item" onclick="califica(5)">5</a>
+            <a class="dropdown-item" onclick="califica(6)">6</a>
+            <a class="dropdown-item" onclick="califica(7)">7</a>
+            <a class="dropdown-item" onclick="califica(8)">8</a>
+            <a class="dropdown-item" onclick="califica(9)">9</a>
+            <a class="dropdown-item" onclick="califica(10)">10</a>
+        </div><span id="nota" style="color: white;"><u>Selecciona</u></span>
+    </div><br>
+    <input class="btn btn-primary" type="submit" value="Enviar" onclick="send()">
+</div>
+</section>
+</body>
+</html>
+<script>
+var calificacion=0;
+try {
+$(document).click(function(){
+    $('.navbar-collapse').collapse('hide');
+});    
+} catch (error) {
+console.log(error)
+}
+function califica(n){
+$("#nota").html("<u>Nota: "+n+"</u>");
+calificacion=n;
+}
+function send(){
+if(calificacion===0 || document.getElementsByClassName("nombre")[0].value=="" || document.getElementsByClassName("universidad")[0].value=="" || document.getElementsByClassName("materia")[0].value=="" || document.getElementsByClassName("frase")[0].value=="" || document.getElementsByClassName("comentario")[0].value==""){
+    window.alert("Por favor, llena todos los parámetros");
+}
+else{
+    $.post("https://calificame.netlify.com/.netlify/functions/index",{ 
+        nombre: document.getElementsByClassName("nombre")[0].value,
+        universidad: document.getElementsByClassName("universidad")[0].value,
+        materia: document.getElementsByClassName("materia")[0].value,
+        frase: document.getElementsByClassName("frase")[0].value,
+        comentario: document.getElementsByClassName("comentario")[0].value,
+        calificacion: calificacion
+    },
+    function(data, status, xhr) {
+    },"json");
+    window.alert("Enviaste una calificación de: "+calificacion);
+    location.reload();
+}
+}
+</script>

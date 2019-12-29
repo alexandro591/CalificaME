@@ -10,7 +10,8 @@ calificaME.use(bodyParser.urlencoded({ extended: true }));
 
 //function to get body from url
 var publicaciones;
-
+const htmlUrlTop = "https://raw.githubusercontent.com/alexandro591/CalificaME/master/public/top.html";
+const htmlUrlBottom = "https://raw.githubusercontent.com/alexandro591/CalificaME/master/public/bottom.html"
 
 router.get("/resetdepublicaciones",(request,response)=>{
     response.end();
@@ -22,20 +23,17 @@ router.get("/publicaciones",(request,response)=>{
 });
 
 router.get("/",(request,response)=>{
-    var url = "https://raw.githubusercontent.com/alexandro591/CalificaME/master/public/index.html";
     var getData = async url => {
         try {
             var body = await axios.get(url);
-            body = body.data;
+            body = body.data.toString();
         }catch (error) {
             body="error";
         }
         return body;
     };
     getData(url).then((res=>{
-        s=res.toString()
-        console.log(s)
-        response.write(s);
+        response.write(res);
         response.end();
     }));
 });
