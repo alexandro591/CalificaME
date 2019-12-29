@@ -4,9 +4,8 @@ const calificaME = express();
 const router = express.Router();
 const bodyParser = require('body-parser');
 const axios = require("axios");
-const dfs = require('dropbox-fs')({
-    apiKey: '0bwa8pzssjx7l3o'
-});
+
+var fs = require('fs');
 
 calificaME.use(bodyParser.json());
 calificaME.use(bodyParser.urlencoded({ extended: true }));
@@ -38,20 +37,19 @@ router.get("/resetdepublicaciones",(request,response)=>{
 });
 
 router.get("/publicaciones",(request,response)=>{
-    response.write(publicaciones)
-    response.end();
+
 });
 
 router.get("/",(request,response)=>{
-    dfs.readdir('/Public', (err, result) => {
-        console.log(result);
+    fs.appendFile('mynewfile1.txt', 'Hello content!', function (err) {
+        if (err) throw err;
+        console.log('Saved!');
+    })
+    fs.readFile('mynewfile1.txt', function(err, data) {
+        console.log(data.toString())
     });
-    dfs.readdir('/calificaME', (err, result) => {
-        console.log(result);
-    });
-    dfs.readdir('/', (err, result) => {
-        console.log(result);
-    });
+
+
     getData(htmlUrlTop).then((res=>{
         response.write(res);
         getData(htmlUrlPublicaciones).then((res=>{
