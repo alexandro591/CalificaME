@@ -48,7 +48,7 @@ if(calificacion===0 || document.getElementsByClassName("nombre")[0].value=="" ||
     window.alert("Por favor, llena todos los parámetros");
 }
 else{
-    $.post("https://calificame.netlify.com/.netlify/functions/index",{ 
+    $.post("http://localhost:9000/.netlify/functions/index/",{ 
         nombre: document.getElementsByClassName("nombre")[0].value,
         universidad: document.getElementsByClassName("universidad")[0].value,
         materia: document.getElementsByClassName("materia")[0].value,

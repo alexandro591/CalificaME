@@ -9,7 +9,18 @@ calificaME.use(bodyParser.json());
 calificaME.use(bodyParser.urlencoded({ extended: true }));
 
 //function to get body from url
-var publicaciones;
+async function getData(url){
+    try {
+        var body = await axios.get(url);
+        body = body.data.toString();
+    }catch (error) {
+        body="error";
+    }
+    return body;
+};
+
+
+var publicaciones="";
 const htmlUrlTop = "https://raw.githubusercontent.com/alexandro591/CalificaME/master/public/top.html";
 const htmlUrlBottom = "https://raw.githubusercontent.com/alexandro591/CalificaME/master/public/bottom.html"
 
@@ -23,18 +34,13 @@ router.get("/publicaciones",(request,response)=>{
 });
 
 router.get("/",(request,response)=>{
-    var getData = async url => {
-        try {
-            var body = await axios.get(url);
-            body = body.data.toString();
-        }catch (error) {
-            body="error";
-        }
-        return body;
-    };
-    getData(url).then((res=>{
+    getData(htmlUrlTop).then((res=>{
         response.write(res);
-        response.end();
+        getData(htmlUrlBottom).then((res=>{
+            response.write(res);
+            response.write(publicaciones);
+            response.end();
+        }));
     }));
 });
 
