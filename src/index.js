@@ -10,7 +10,7 @@ var fs = require('fs');
 calificaME.use(bodyParser.json());
 calificaME.use(bodyParser.urlencoded({ extended: true }));
 
-//function to get body from url
+/*function to get body from url
 async function getData(url){
     try {
         var body = await axios.get(url);
@@ -20,46 +20,34 @@ async function getData(url){
     }
     return body;
 };
-
-
-var publicaciones="";
-const htmlUrlTop = "https://raw.githubusercontent.com/alexandro591/CalificaME/master/public/top.html";
-const htmlUrlPublicaciones = "https://raw.githubusercontent.com/alexandro591/CalificaME/master/public/publicaciones.html";
-const htmlUrlBottom = "https://raw.githubusercontent.com/alexandro591/CalificaME/master/public/bottom.html";
-
+*/
 
 router.get("/resetdepublicaciones",(request,response)=>{
-    getData(htmlUrlPublicaciones).then((res=>{
-        response.write(publicaciones);
-        response.write(res);
-        response.end();
-    }));
 });
 
 router.get("/publicaciones",(request,response)=>{
-
+    fs.readFile('public/publicaciones.html', function(err, data) {
+        response.write(data);
+        response.end();
+    });
 });
 
 router.get("/",(request,response)=>{
-    fs.appendFile('mynewfile1.txt', 'Hello content!', function (err) {
-        if (err) throw err;
-        console.log('Saved!');
+    let top="";
+    let publicaciones="";
+    let bottom="";
+    fs.readFile('public/top.html', function(err, data) {
+        top=data.toString();
+        fs.readFile('public/publicaciones.html', function(err, data) {
+            publicaciones=data.toString();
+            fs.readFile('public/bottom.html', function(err, data) {
+                bottom=data.toString();
+                response.write(top+publicaciones+bottom);
+                response.end();
+            });
+        });
     })
-    fs.readFile('mynewfile1.txt', function(err, data) {
-        console.log(data.toString())
-    });
 
-
-    getData(htmlUrlTop).then((res=>{
-        response.write(res);
-        getData(htmlUrlPublicaciones).then((res=>{
-            response.write(res);
-            getData(htmlUrlBottom).then((res=>{
-                response.write(res);
-                response.end()
-            }));
-        }));
-    }));
 });
 
 router.post("/",function(request,response){
@@ -71,7 +59,7 @@ router.post("/",function(request,response){
     let calificacion = request.body.calificacion;
     var datetime = new Date();
     comentario = comentario.replace(/\n/g,"<br>");
-    publicaciones ='<div class="row">\
+    publicacion ='<div class="row">\
                         <div class="col-sm text-center">\
                             <h4>'+nombre+'<br></h4>\
                             '+universidad+'<br>\
@@ -83,7 +71,9 @@ router.post("/",function(request,response){
                             <p>'+calificacion+'/10</p>\
                             <p>Date:'+datetime.toISOString().slice(0,10)+'</p>\
                         </div>\
-                    </div><hr>'+publicaciones;
+                    </div><hr>';
+    var fd = fs.openSync('public/publicaciones.html', 'a+');
+    fs.write(fd, publicacion, 0, publicacion.length, 0);
     response.write("ok");
     response.end();
 });
