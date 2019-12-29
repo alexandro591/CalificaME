@@ -22,7 +22,8 @@ async function getData(url){
 
 var publicaciones="";
 const htmlUrlTop = "https://raw.githubusercontent.com/alexandro591/CalificaME/master/public/top.html";
-const htmlUrlBottom = "https://raw.githubusercontent.com/alexandro591/CalificaME/master/public/bottom.html"
+const htmlUrlBottom = "https://raw.githubusercontent.com/alexandro591/CalificaME/master/public/bottom.html";
+const htmlUrlPublicaciones = "https://raw.githubusercontent.com/alexandro591/CalificaME/master/public/publicaciones.html";
 
 router.get("/resetdepublicaciones",(request,response)=>{
     response.end();
@@ -37,8 +38,8 @@ router.get("/",(request,response)=>{
     getData(htmlUrlTop).then((res=>{
         response.write(res);
         getData(htmlUrlBottom).then((res=>{
-            response.write(res);
             response.write(publicaciones);
+            response.write(res);
             response.end();
         }));
     }));
