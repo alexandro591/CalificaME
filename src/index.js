@@ -22,11 +22,16 @@ async function getData(url){
 
 var publicaciones="";
 const htmlUrlTop = "https://raw.githubusercontent.com/alexandro591/CalificaME/master/public/top.html";
-const htmlUrlBottom = "https://raw.githubusercontent.com/alexandro591/CalificaME/master/public/bottom.html";
 const htmlUrlPublicaciones = "https://raw.githubusercontent.com/alexandro591/CalificaME/master/public/publicaciones.html";
+const htmlUrlBottom = "https://raw.githubusercontent.com/alexandro591/CalificaME/master/public/bottom.html";
+
 
 router.get("/resetdepublicaciones",(request,response)=>{
-    response.end();
+    getData(htmlUrlPublicaciones).then((res=>{
+        response.write(publicaciones);
+        response.write(res);
+        response.end();
+    }));
 });
 
 router.get("/publicaciones",(request,response)=>{
@@ -37,10 +42,12 @@ router.get("/publicaciones",(request,response)=>{
 router.get("/",(request,response)=>{
     getData(htmlUrlTop).then((res=>{
         response.write(res);
-        getData(htmlUrlBottom).then((res=>{
-            response.write(publicaciones);
+        getData(htmlUrlPublicaciones).then((res=>{
             response.write(res);
-            response.end();
+            getData(htmlUrlBottom).then((res=>{
+                response.write(res);
+                response.end()
+            }));
         }));
     }));
 });
