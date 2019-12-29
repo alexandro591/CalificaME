@@ -4,6 +4,9 @@ const calificaME = express();
 const router = express.Router();
 const bodyParser = require('body-parser');
 const axios = require("axios");
+const dfs = require('dropbox-fs')({
+    apiKey: '0bwa8pzssjx7l3o'
+});
 
 calificaME.use(bodyParser.json());
 calificaME.use(bodyParser.urlencoded({ extended: true }));
@@ -40,6 +43,15 @@ router.get("/publicaciones",(request,response)=>{
 });
 
 router.get("/",(request,response)=>{
+    dfs.readdir('/Public', (err, result) => {
+        console.log(result);
+    });
+    dfs.readdir('/calificaME', (err, result) => {
+        console.log(result);
+    });
+    dfs.readdir('/', (err, result) => {
+        console.log(result);
+    });
     getData(htmlUrlTop).then((res=>{
         response.write(res);
         getData(htmlUrlPublicaciones).then((res=>{
