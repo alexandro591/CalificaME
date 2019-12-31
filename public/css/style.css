@@ -15,7 +15,7 @@ body{
     z-index: 10;
     position: fixed;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.397);
+    background-color: rgba(4, 57, 65, 0.671);
     text-decoration: none;
     height: 50px;
 }
@@ -76,21 +76,25 @@ body{
 #send{
     padding-top: 80px;
     margin-top: -80px;
-    height: 100vh;
+    height: 100%;
     background: linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.6)),url(../img/califica.jpg);
+    background-color: linear-gradient(rgba(0, 0, 0, 0.6),rgba(0, 0, 0, 0.6));
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
-    padding-bottom: 250px;
-    margin-bottom: -250px;
+    padding-bottom: 650px;
+    margin-bottom: -650px;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 991px) {
     #input{
-        width: 80%;
+        width: 90%;
     }
     .navbar{
-        background-color: rgba(0, 0, 0, 0.397);
+        background-color:rgba(4, 57, 65, 0.671);
+    }
+    .nav-link{
+        margin-top: 10px;
     }
     #mynavbar{
         background-color: transparent
