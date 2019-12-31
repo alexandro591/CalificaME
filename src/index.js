@@ -41,20 +41,11 @@ router.post("/",function(request,response){
     var datetime = new Date();
     comentario = comentario.replace(/\n/g,"<br>");
 
-    /*publicacion ='<div class="row">\
-                        <div class="col-sm text-center">\
-                            <h4>'+nombre+'<br></h4>\
-                            '+universidad+'<br>\
-                            '+materia+'\
-                        </div>\
-                        <div class="col-sm text-center">\
-                            <h5>'+frase+'<br></h5>\
-                            <p class="comment">'+comentario+'</p>\
-                            <p>'+calificacion+'/10</p>\
-                            <p>Date:'+datetime.toISOString().slice(0,10)+'</p>\
-                        </div>\
-                    </div><hr>';
-    */
+    publicacion ='<div class="row"><div class="col-sm text-center"><h4>'+nombre+'<br></h4>'+universidad+'<br>'+materia+'</div><div class="col-sm text-center"><h5>'+frase+'<br></h5><p class="comment">'+comentario+'</p><p>'+calificacion+'/10</p><p>'+datetime.toISOString().slice(0,10)+'</p></div></div><hr>';
+
+    axios.post("https://calificame-27d0f.firebaseio.com/calificaciones/"+datetime.toISOString()+".json", {
+    publicacion: publicacion
+    });
 
     response.write("ok");
     response.end();
