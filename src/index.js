@@ -71,7 +71,9 @@ router.post("/",function(request,response){
     var pattern = 'aA'
     var id = randomId(len,pattern)
     axios.post("https://calificame-27d0f.firebaseio.com/calificaciones/.json", {
-    publicacion: publicacion
+        "provider": "anonymous",
+        "uid": "1234",
+        publicacion: publicacion
     });
     response.write("ok");
     response.end();
