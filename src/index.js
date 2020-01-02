@@ -11,13 +11,29 @@ calificaME.use(bodyParser.urlencoded({ extended: true }));
 
 async function getData(url){
     try {
-        var body = await axios.get(url);
+        var body = await axios.get(url,{
+            "provider": "anonymous",
+            "uid": "1234"
+        });
         body = body.data;
     }catch (error) {
         body="error";
     }
     return body;
 };
+
+router.get("/publicaciones",(request,response)=>{
+    getData('https://calificame-27d0f.firebaseio.com/calificaciones.json')
+    .then(res =>{
+        for (var key in res) {
+            if (res.hasOwnProperty(key)) {
+                var publicaciones = JSON.stringify(res[key]).replace(/\\/g,"").replace(/\{\"publicacion\":\"/g,"").replace(/\"\}\{\"publicacion\":\"/g,"").replace(/\"\}/g,"");
+                response.write(publicaciones);
+                response.end();
+            }
+        }
+    });
+});
 
 router.get("/",(request,response)=>{
     getData('https://raw.githubusercontent.com/alexandro591/CalificaME/master/public/top.html')
