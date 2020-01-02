@@ -27,5 +27,14 @@
     "request": "^2.88.0",
     "serverless-http": "^2.3.0",
     "xmlhttprequest": "^1.8.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexandro591/CalificaME.git"
+  },
+  "bugs": {
+    "url": "https://github.com/alexandro591/CalificaME/issues"
+  },
+  "homepage": "https://github.com/alexandro591/CalificaME#readme"
 }
