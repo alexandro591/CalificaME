@@ -11,9 +11,13 @@ calificaME.use(bodyParser.urlencoded({ extended: true }));
 
 async function getData(url){
     try {
-        var body = await axios.get(url,{
-            "provider": "anonymous",
-            "uid": "1234"
+        var body = await axios({
+            method: "get",
+            url: url,
+            params: {
+                "provider": "anonymous",
+                "uid": "1234"
+            }
         });
         body = body.data;
     }catch (error) {
