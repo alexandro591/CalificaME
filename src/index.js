@@ -1,82 +1,134 @@
 const express = require("express");
 const serverless = require("serverless-http");
-const calificaME = express();
+const acolame = express();
 const router = express.Router();
 const bodyParser = require('body-parser');
 const axios = require("axios");
-const randomId = require('random-id');
 
-calificaME.use(bodyParser.json());
-calificaME.use(bodyParser.urlencoded({ extended: true }));
+var urlTopHTML = "https://raw.githubusercontent.com/acolame/acola.me/master/top.html";
+var urlBottomHTML = "https://raw.githubusercontent.com/acolame/acola.me/master/bottom.html";
+var urlDatabase = "https://acolame-d1d98.firebaseio.com/publicaciones.json"
+acolame.use(bodyParser.json());
+acolame.use(bodyParser.urlencoded({ extended: true }));
 
-async function getData(url){
-    try {
-        var body = await axios({
-            method: "get",
-            url: url,
-        });
-        body = body.data;
-    }catch (error) {
-        body="error";
-    }
-    return body;
-};
-
-router.get("/publicaciones",(request,response)=>{
-    getData('https://calificame-27d0f.firebaseio.com/calificaciones.json')
-    .then(res =>{
-        for (var key in res) {
-            if (res.hasOwnProperty(key)) {
-                var publicaciones = JSON.stringify(res[key]).replace(/\\/g,"").replace(/\{\"publicacion\":\"/g,"").replace(/\"\}\{\"publicacion\":\"/g,"").replace(/\"\}/g,"");
-                response.write(publicaciones);
-                response.end();
+router.get("/",(request,response)=>{
+    axios.get(urlTopHTML)
+    .then(res=>{
+        response.write(res.data.toString());
+        axios.get(urlDatabase)
+        .then(body=>{
+            if(body.data!=null){
+                var nItems = Object.keys(body.data).length;
+                var posts=""
+                for(let i=nItems-1;i>=0;i--){
+                    id=Object.keys(body.data)[i].toString();
+                    name=body.data[id.toString()].name.toString();
+                    origin=body.data[id.toString()].origin.toString();
+                    destination=body.data[id.toString()].destination.toString();
+                    whatsapp=body.data[id.toString()].whatsapp.toString();
+                    facebook=body.data[id.toString()].facebook.toString();
+                    seats=body.data[id.toString()].seats.toString();
+                    password=body.data[id.toString()].password.toString();
+                    date=body.data[id.toString()].date.toString();
+                    description=body.data[id.toString()].description.toString();
+    
+                    var today = new Date();
+                    var dd = String(today.getDate()).padStart(2, '0');
+                    var mm = String(today.getMonth() + 1).padStart(2, '0');
+                    var yyyy = today.getFullYear();
+    
+                    today = mm + '/' + dd + '/' + yyyy;
+                    today=today.toString();
+                    posts='\
+                    <li>\
+                        <span class="exit" onclick="deletePost(\''+id+'\')"><i class="fa fa-times" aria-hidden="true"></i></span>\
+                        <h3>'+name+'</h3>\
+                        <p>Lugar de origen: <span class="origin">'+origin+'</span></p>\
+                        <p>Lugar de destino: <span class="destination">'+destination+'</span></p>\
+                        <p>Fecha: <span class="date-month timestamp">'+today+'</span></p>\
+                        <p>Hora de salida: <span>'+date+'</span></p>\
+                        <p>Asientos: <span>'+seats+'</span></p>\
+                        <p>Redes sociales: <a href="https://wa.me/'+whatsapp+'"><i class="fa fa-facebook" aria-hidden="true"></i></a><a href="'+facebook+'"><i class="fa fa-whatsapp" aria-hidden="true"></i></a></p>\
+                        <p class="comment">'+description+'\
+                        </p>\
+                    </li>'+posts
+                    
+                }
+                axios.get(urlBottomHTML)
+                .then(res=>{
+                    response.write(posts.toString());
+                    response.write(res.data.toString());
+                    response.end();
+                });
             }
+            else{
+                axios.get(urlBottomHTML)
+                .then(res=>{
+                    response.write(res.data.toString());
+                    response.end();
+                }); 
+            }
+            
+        });
+    });
+    
+});
+
+router.post("/",function(request,response){
+    let name = request.body.name;
+    let origin = request.body.origin;
+    let destination = request.body.destination;
+    let whatsapp = request.body.whatsapp;
+    let facebook = request.body.facebook;
+    let seats = request.body.seats;
+    let password = request.body.password;
+    let date = request.body.date;
+    let description = request.body.description;
+    if(name!=="" && name!==null && origin!=="" && origin!==null && destination!=="" && destination!==null && whatsapp!=="" && whatsapp!==null && facebook!=="" && facebook!==null && seats!=="" && seats!==null && password!=="" && password!==null && date!=="" && date!==null && description!=="" && description!==null){
+        axios.post("https://acolame-d1d98.firebaseio.com/publicaciones.json",{
+            name:name,
+            origin:origin,
+            destination:destination,
+            whatsapp:whatsapp,
+            facebook:facebook,
+            seats:seats,
+            password:password,
+            date:date,
+            description:description
+        })
+        .then(()=>{
+            response.write('ok')
+            response.end();
+        });
+    }
+    else{
+        response.write('bad')
+        response.end();
+    }
+});
+
+router.post("/delete",function(request,response){
+    let uri = request.body.uri;
+    let key = request.body.key;
+    axios.get("https://acolame-d1d98.firebaseio.com/publicaciones/"+uri+"/password.json")
+    .then(res=>{
+        console.log(res.data.toString())
+        if(res.data.toString()===key.toString()){
+            axios.delete("https://acolame-d1d98.firebaseio.com/publicaciones/"+uri+".json")
+            .then(()=>{
+                response.write("ok")
+                response.end()
+            });
+        }
+        else{
+            response.write("bad")
+            response.end()
         }
     });
 });
 
-router.get("/",(request,response)=>{
-    getData('https://raw.githubusercontent.com/alexandro591/CalificaME/master/public/top.html')
-    .then(res =>{
-        response.write(res.toString());
-        getData('https://calificame-27d0f.firebaseio.com/calificaciones.json')
-        .then(res =>{
-            for (var key in res) {
-                if (res.hasOwnProperty(key)) {
-                    var publicaciones = JSON.stringify(res[key]).replace(/\\/g,"").replace(/\{\"publicacion\":\"/g,"").replace(/\"\}\{\"publicacion\":\"/g,"").replace(/\"\}/g,"");
-                    response.write(publicaciones);
-                }
-            }
-            getData('https://raw.githubusercontent.com/alexandro591/CalificaME/master/public/bottom.html')
-            .then(res =>{
-                response.write(res.toString());
-                response.end();
-            });
-        });
-    });
 
-});
+acolame.use("/.netlify/functions/index",router);
 
-router.post("/",function(request,response){
-    let nombre = request.body.nombre;
-    let universidad = request.body.universidad;
-    let materia = request.body.materia;
-    let frase = request.body.frase;
-    let comentario = request.body.comentario;
-    let calificacion = request.body.calificacion;
-    var datetime = new Date();
-    comentario = comentario.replace(/\n/g,"<br>");
-    publicacion ='<div class="row"><div class="col-sm text-center"><h4>'+nombre+'<br></h4>'+universidad+'<br>'+materia+'</div><div class="col-sm text-center"><h5>'+frase+'<br></h5><p class="comment">'+comentario+'</p><p>'+calificacion+'/10</p><p>'+datetime.toISOString().slice(0,10)+'</p></div></div><hr>';
-    var len = 10;
-    var pattern = 'aA'
-    var id = randomId(len,pattern)
-    axios.post("https://calificame-27d0f.firebaseio.com/calificaciones/.json", {
-        publicacion: publicacion
-    });
-    response.write("ok");
-    response.end();
-});
+module.exports.handler = serverless(acolame);
 
-calificaME.use("/.netlify/functions/index",router);
-
-module.exports.handler = serverless(calificaME);
