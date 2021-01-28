@@ -15,7 +15,7 @@
     "body-parser": "^1.19.0",
     "child_process": "^1.0.2",
     "dropbox-fs": "^0.3.1",
-    "electron": "^7.1.7",
+    "electron": "^9.4.0",
     "express": "^4.17.1",
     "firebase": "^7.6.1",
     "firebase-admin": "^8.9.0",
